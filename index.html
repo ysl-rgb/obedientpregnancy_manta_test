@@ -12,21 +12,28 @@
 :root {
   --pink: #f472b6;
   --pink-dark: #db2777;
-  --pink-light: #fce7f3;
   --cream: #fff9f5;
-  --manta-purple: #6f4cf6;
   --text: #1a0a0a;
   --shadow: rgba(244,114,182,0.35);
 }
-body {
-  font-family: 'Lato', sans-serif;
+html, body {
+  width: 100%; height: 100%;
   background: #0d0005;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
   overflow: hidden;
+  font-family: 'Lato', sans-serif;
 }
+
+/* 핵심: 뷰포트에 맞게 스케일 */
+#scale-root {
+  width: 390px;
+  height: 844px;
+  transform-origin: center center;
+  /* JS로 scale 동적 적용 */
+}
+
 #game-wrap {
   width: 390px;
   height: 844px;
@@ -55,54 +62,36 @@ body {
   justify-content: flex-end;
 }
 #opening-img {
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
+  object-fit: cover; object-position: top center;
 }
 #opening-gradient {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
+  position: absolute; bottom: 0; left: 0; right: 0;
   height: 260px;
   background: linear-gradient(to bottom, transparent, rgba(10,0,8,0.94) 75%);
   pointer-events: none;
 }
 #opening-content {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  padding: 0 28px 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: relative; z-index: 2;
+  width: 100%; padding: 0 28px 100px;
+  display: flex; flex-direction: column; align-items: center;
 }
 .btn-start {
   font-family: 'Pretendard', 'Lato', sans-serif;
   background: linear-gradient(135deg, #f472b6, #db2777);
-  color: white;
-  border: none;
-  padding: 16px 56px;
-  border-radius: 50px;
-  font-size: 17px;
-  font-weight: 700;
-  cursor: pointer;
+  color: white; border: none;
+  padding: 16px 56px; border-radius: 50px;
+  font-size: 17px; font-weight: 700; cursor: pointer;
   box-shadow: 0 4px 30px var(--shadow), inset 0 1px 0 rgba(255,255,255,0.3);
   animation: pulseBtn 2s ease-in-out infinite;
-  letter-spacing: 0.3px;
-  position: relative;
-  overflow: hidden;
+  letter-spacing: 0.3px; position: relative; overflow: hidden;
   white-space: nowrap;
 }
 .btn-start::after {
-  content: '';
-  position: absolute;
-  top: -50%; left: -60%;
-  width: 40%; height: 200%;
-  background: rgba(255,255,255,0.22);
-  transform: skewX(-20deg);
+  content: ''; position: absolute;
+  top: -50%; left: -60%; width: 40%; height: 200%;
+  background: rgba(255,255,255,0.22); transform: skewX(-20deg);
   animation: shimmer 2.5s ease-in-out infinite;
 }
 @keyframes shimmer { 0%,100%{left:-60%} 50%{left:120%} }
@@ -112,80 +101,46 @@ body {
 }
 
 /* ── STORY ── */
-.story-screen {
-  display: flex;
-  flex-direction: column;
-  background: #fff9f5;
-}
+.story-screen { display: flex; flex-direction: column; background: #fff9f5; }
 .story-image-area {
-  flex: 0 0 auto;
-  width: 100%;
-  height: 490px;
-  overflow: hidden;
-  position: relative;
+  flex: 0 0 auto; width: 100%; height: 490px;
+  overflow: hidden; position: relative;
 }
 .story-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  display: block;
-  image-rendering: -webkit-optimize-contrast;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top center; display: block;
 }
 .story-image-fade {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 70px;
+  position: absolute; bottom: 0; left: 0; right: 0; height: 70px;
   background: linear-gradient(to bottom, transparent, #fff9f5);
   pointer-events: none;
 }
 .story-text-area {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 12px 20px 22px;
-  gap: 11px;
-  background: #fff9f5;
+  flex: 1; display: flex; flex-direction: column;
+  padding: 12px 20px 22px; gap: 11px; background: #fff9f5;
 }
 .step-badge {
   align-self: flex-start;
   background: linear-gradient(135deg, var(--pink), var(--pink-dark));
-  color: white;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 4px 13px;
-  border-radius: 20px;
+  color: white; font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 4px 13px; border-radius: 20px;
 }
 .bubble {
-  background: white;
-  border-radius: 16px;
-  padding: 13px 15px;
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--text);
-  box-shadow: 0 2px 14px rgba(0,0,0,0.07);
+  background: white; border-radius: 16px;
+  padding: 13px 15px; font-size: 13px; line-height: 1.6;
+  color: var(--text); box-shadow: 0 2px 14px rgba(0,0,0,0.07);
   border-left: 3px solid var(--pink);
 }
 .choice-area { display: flex; flex-direction: column; gap: 9px; }
 .btn-choice {
-  width: 100%;
-  padding: 13px 16px;
-  border-radius: 13px;
-  border: 2px solid var(--pink);
-  background: white;
-  color: #9d174d;
-  font-family: 'Lato', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
+  width: 100%; padding: 13px 16px; border-radius: 13px;
+  border: 2px solid var(--pink); background: white; color: #9d174d;
+  font-family: 'Lato', sans-serif; font-size: 13px; font-weight: 700;
   cursor: pointer;
   transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
-  text-align: center;
-  line-height: 1.4;
+  text-align: center; line-height: 1.4;
   box-shadow: 0 2px 10px rgba(244,114,182,0.12);
-  position: relative;
-  overflow: hidden;
 }
 .btn-choice:hover {
   background: linear-gradient(135deg, rgba(244,114,182,0.08), rgba(219,39,119,0.12));
@@ -193,25 +148,18 @@ body {
 }
 .btn-choice:active {
   background: linear-gradient(135deg, #f472b6, #db2777);
-  color: white;
-  box-shadow: 0 4px 18px var(--shadow);
-  transform: translateY(-1px);
+  color: white; box-shadow: 0 4px 18px var(--shadow); transform: translateY(-1px);
 }
 
-/* ── PROGRESS DOTS — 살짝 아래로 ── */
+/* ── PROGRESS DOTS ── */
 .progress-dots {
-  position: absolute;
-  top: 28px; /* 16px → 28px */
-  left: 50%;
+  position: absolute; top: 28px; left: 50%;
   transform: translateX(-50%);
-  display: flex; gap: 6px;
-  z-index: 20;
+  display: flex; gap: 6px; z-index: 20;
 }
 .dot {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: rgba(244,114,182,0.3);
-  transition: all 0.3s ease;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(244,114,182,0.3); transition: all 0.3s ease;
 }
 .dot.active { background: var(--pink-dark); transform: scale(1.3); }
 .dot.done { background: var(--pink); }
@@ -219,23 +167,16 @@ body {
 /* ── OOPS ── */
 #oops-overlay {
   position: absolute; inset: 0;
-  background: rgba(10,0,8,0.55);
-  backdrop-filter: blur(3px);
+  background: rgba(10,0,8,0.55); backdrop-filter: blur(3px);
   display: flex; align-items: center; justify-content: center;
-  z-index: 200;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.3s ease;
+  z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
 }
 #oops-overlay.visible { opacity: 1; pointer-events: all; }
 #oops-box {
-  background: white;
-  border-radius: 22px;
-  padding: 30px 28px 24px;
-  width: 300px;
-  text-align: center;
+  background: white; border-radius: 22px; padding: 30px 28px 24px;
+  width: 300px; text-align: center;
   box-shadow: 0 16px 60px rgba(0,0,0,0.35);
-  transform: scale(0.88);
-  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  transform: scale(0.88); transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
 }
 #oops-overlay.visible #oops-box { transform: scale(1); }
 .oops-icon { font-size: 44px; margin-bottom: 10px; display: block; animation: shake 0.5s ease; }
@@ -243,42 +184,29 @@ body {
   0%,100%{transform:rotate(0)} 20%{transform:rotate(-8deg)} 40%{transform:rotate(8deg)}
   60%{transform:rotate(-5deg)} 80%{transform:rotate(5deg)}
 }
-.oops-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 22px; font-weight: 700;
-  color: var(--pink-dark); margin-bottom: 6px;
-}
+.oops-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--pink-dark); margin-bottom: 6px; }
 .oops-sub { font-size: 13px; color: #888; margin-bottom: 20px; line-height: 1.5; }
 .btn-oops-retry {
   background: linear-gradient(135deg, #f472b6, #db2777);
-  color: white; border: none;
-  padding: 13px 36px; border-radius: 50px;
-  font-family: 'Lato', sans-serif;
-  font-size: 14px; font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 4px 18px var(--shadow);
-  transition: all 0.2s ease;
+  color: white; border: none; padding: 13px 36px; border-radius: 50px;
+  font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 700;
+  cursor: pointer; box-shadow: 0 4px 18px var(--shadow); transition: all 0.2s ease;
 }
 .btn-oops-retry:hover { transform: translateY(-1px); }
 
 /* ── FINAL POPUP ── */
 #popup-overlay {
   position: absolute; inset: 0;
-  background: rgba(10,0,8,0.72);
-  backdrop-filter: blur(4px);
+  background: rgba(10,0,8,0.72); backdrop-filter: blur(4px);
   display: flex; align-items: center; justify-content: center;
-  z-index: 100;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.4s ease;
+  z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
 }
 #popup-overlay.visible { opacity: 1; pointer-events: all; }
 #popup-box {
   background: linear-gradient(160deg, #fff9f5, #ede9ff);
-  border-radius: 24px; padding: 36px 28px;
-  width: 320px; text-align: center;
+  border-radius: 24px; padding: 36px 28px; width: 320px; text-align: center;
   box-shadow: 0 24px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(111,76,246,0.2);
-  transform: scale(0.85);
-  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  transform: scale(0.85); transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
   position: relative; overflow: hidden;
 }
 #popup-overlay.visible #popup-box { transform: scale(1); }
@@ -286,27 +214,10 @@ body {
   position: absolute; top: -30px; left: -30px; right: -30px; height: 120px;
   background: radial-gradient(ellipse at center, rgba(111,76,246,0.25), transparent 70%);
 }
-.gem-icon {
-  font-size: 52px;
-  animation: gemBounce 1s ease-in-out infinite alternate;
-  display: block; position: relative;
-}
-@keyframes gemBounce {
-  from { transform: translateY(0) rotate(-5deg); }
-  to { transform: translateY(-8px) rotate(5deg); }
-}
-.popup-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 26px; font-weight: 700; color: #4e54f6;
-  margin: 10px 0 4px;
-}
-.gem-count {
-  font-size: 44px; font-weight: 700;
-  color: #6f4cf6;
-  text-shadow: 0 2px 16px rgba(111,76,246,0.35);
-  margin: 4px 0;
-  font-family: 'Playfair Display', serif;
-}
+.gem-icon { font-size: 52px; animation: gemBounce 1s ease-in-out infinite alternate; display: block; position: relative; }
+@keyframes gemBounce { from{transform:translateY(0) rotate(-5deg)} to{transform:translateY(-8px) rotate(5deg)} }
+.popup-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: #4e54f6; margin: 10px 0 4px; }
+.gem-count { font-size: 44px; font-weight: 700; color: #6f4cf6; text-shadow: 0 2px 16px rgba(111,76,246,0.35); margin: 4px 0; font-family: 'Playfair Display', serif; }
 .gem-label { font-size: 15px; color: #6f4cf6; font-weight: 600; margin-bottom: 22px; opacity: 0.8; }
 .btn-claim {
   display: block; width: 100%; padding: 16px;
@@ -318,25 +229,20 @@ body {
   transition: all 0.2s ease; position: relative; overflow: hidden;
 }
 .btn-claim::after {
-  content: ''; position: absolute;
-  top: -50%; left: -60%; width: 40%; height: 200%;
-  background: rgba(255,255,255,0.25);
-  transform: skewX(-20deg);
+  content: ''; position: absolute; top: -50%; left: -60%; width: 40%; height: 200%;
+  background: rgba(255,255,255,0.25); transform: skewX(-20deg);
   animation: shimmer 2s ease-in-out infinite;
 }
 .btn-claim:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(78,84,246,0.55); }
 .confetti-piece {
   position: absolute; width: 8px; height: 8px; top: -10px;
-  animation: confettiFall var(--cd,2s) var(--cdel,0s) ease-in infinite;
-  border-radius: 2px;
+  animation: confettiFall var(--cd,2s) var(--cdel,0s) ease-in infinite; border-radius: 2px;
 }
-@keyframes confettiFall {
-  0% { transform: translateY(0) rotate(0); opacity: 1; }
-  100% { transform: translateY(500px) rotate(720deg); opacity: 0; }
-}
+@keyframes confettiFall { 0%{transform:translateY(0) rotate(0);opacity:1} 100%{transform:translateY(500px) rotate(720deg);opacity:0} }
 </style>
 </head>
 <body>
+<div id="scale-root">
 <div id="game-wrap">
 
   <div class="progress-dots" id="progress-dots" style="display:none">
@@ -437,7 +343,21 @@ body {
   </div>
 
 </div>
+</div>
+
 <script>
+function scaleGame() {
+  var root = document.getElementById('scale-root');
+  var vw = window.innerWidth;
+  var vh = window.innerHeight;
+  var scaleX = vw / 390;
+  var scaleY = vh / 844;
+  var scale = Math.min(scaleX, scaleY, 1.5); // 최대 1.5배까지 확대
+  root.style.transform = 'scale(' + scale + ')';
+}
+scaleGame();
+window.addEventListener('resize', scaleGame);
+
 function goToScreen(id) {
   document.querySelectorAll('.screen').forEach(function(s) {
     s.classList.remove('active'); s.classList.add('exit');
@@ -465,13 +385,9 @@ function showOops() {
   var overlay = document.getElementById('oops-overlay');
   overlay.classList.add('visible');
   var icon = overlay.querySelector('.oops-icon');
-  icon.style.animation = 'none';
-  void icon.offsetHeight;
-  icon.style.animation = '';
+  icon.style.animation = 'none'; void icon.offsetHeight; icon.style.animation = '';
 }
-function closeOops() {
-  document.getElementById('oops-overlay').classList.remove('visible');
-}
+function closeOops() { document.getElementById('oops-overlay').classList.remove('visible'); }
 function showPopup() {
   var overlay = document.getElementById('popup-overlay');
   overlay.classList.add('visible');
